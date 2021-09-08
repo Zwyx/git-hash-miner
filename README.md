@@ -1,11 +1,11 @@
-# Git Miner
+# Git Hash Miner
 
 Command line utility to generate custom commit hashes.
 
 ## Installation
 
 ```
-npm i -g git-miner
+npm i -g git-hash-miner
 ```
 
 ## Usage
@@ -20,7 +20,7 @@ where `target` is the characters we want the commit hash to start with, and `-a`
 
 ## Example
 
-This command has been run after the last commit in the repository of Git Miner:
+This command has been run after the last commit in the repository of Git Hash Miner:
 
 ```
 gmr -a badc0de
@@ -28,4 +28,4 @@ gmr -a badc0de
 
 ## Note
 
-If you sign your commits with GPG, the commit signature is dropped when using Git Miner.
+If you sign your commits with GPG, the commit signature is dropped when using Git Hash Miner.
