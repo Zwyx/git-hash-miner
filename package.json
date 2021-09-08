@@ -1,6 +1,6 @@
 {
 	"name": "git-hash-miner",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Mine your commit hashes!",
 	"main": "dist/index.js",
 	"bin": {
