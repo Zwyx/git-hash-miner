@@ -3,11 +3,20 @@
 	"version": "1.0.1",
 	"description": "Mine your commit hashes!",
 	"main": "dist/index.js",
+	"files": [
+		"dist/*",
+		"!dist/*.map"
+	],
 	"bin": {
-		"gmr": "dist/index.js"
+		"githashminer": "dist/index.js"
 	},
 	"scripts": {
-		"build": "tsc && sed -i '1s|#!/usr/bin/env ts-node|#!/usr/bin/env node|' dist/index.js"
+		"build": "tsc && sed -i '1s|#!/usr/bin/env ts-node|#!/usr/bin/env node|' dist/index.js",
+		"prepack": "npm run build",
+		"release": "git push && git push --tags && npm ci && npm publish",
+		"release-major": "npm version major && npm run release",
+		"release-minor": "npm version minor && npm run release",
+		"release-patch": "npm version patch && npm run release"
 	},
 	"repository": {
 		"type": "git",

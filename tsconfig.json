@@ -5,7 +5,6 @@
 		"strict": true,
 		"esModuleInterop": true,
 		"outDir": "dist",
-		"sourceMap": true // To use the VS Code debugger
-	},
-	"exclude": ["node_modules", "**/node_modules/*"]
+		"sourceMap": true // To use the VS Code debugger; source maps should be ignored in `.gitignore` and `package.json.files`
+	}
 }

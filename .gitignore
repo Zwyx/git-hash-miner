@@ -1,3 +1,10 @@
-**/node_modules/*
+# NPM login token
+.npmrc
 
+node_modules
+
+# Note: it'd be even better to exclude `dist` entirely and make a GitHub action creating a release containing the tgz file
 dist/*.map
+
+# Result of `npm pack`
+git-hash-miner-*.tgz
