@@ -29,3 +29,7 @@ gmr -a badc0de
 ## Note
 
 If you sign your commits with GPG, the commit signature is dropped when using Git Hash Miner.
+
+## Further reading
+
+The [blog article](https://zwyx.dev/blog/git-hash-miner) accompanying this package.
