@@ -8,10 +8,10 @@ import { argv, exit } from "process";
 import readline from "readline";
 import { Worker } from "worker_threads";
 import {
-	genCommit,
-	paddedHex,
 	PATTERN_LENGTH,
 	PATTERN_PLACEHOLDER,
+	genCommit,
+	paddedHex,
 } from "./Common";
 
 const startDate = Date.now();
@@ -33,7 +33,7 @@ if (!targetHexMatch) {
 
 if (target.length >= PATTERN_LENGTH) {
 	console.error(
-		`Target length is ${target.length}, pattern length is ${PATTERN_LENGTH}. This doesn't give enough chance to find the target; the target length should be at least one character shorter than the pattern length. Either choose a smaller target, or tweak the code to change the length of the pattern.`
+		`Target length is ${target.length}, pattern length is ${PATTERN_LENGTH}. This doesn't give enough chance to find the target; the target length should be at least one character shorter than the pattern length. Either choose a smaller target, or tweak the code to change the length of the pattern.`,
 	);
 	exit(1);
 }
@@ -42,7 +42,7 @@ const stagedFiles = execSync("git diff --staged --", { encoding: "utf8" });
 
 if (stagedFiles) {
 	console.error(
-		"The repository contains staged files, which would prevent 'git commit --amend' to work as expected."
+		"The repository contains staged files, which would prevent 'git commit --amend' to work as expected.",
 	);
 	exit(1);
 }
@@ -50,7 +50,7 @@ if (stagedFiles) {
 const commitObject = execSync("git cat-file commit HEAD", { encoding: "utf8" });
 
 const matchSignature = commitObject.match(
-	/gpgsig.*-----END PGP SIGNATURE-----/s
+	/gpgsig.*-----END PGP SIGNATURE-----/s,
 );
 
 const commitSignature = matchSignature ? matchSignature[0] : null;
@@ -72,7 +72,7 @@ if (autoAmend) {
 }
 
 const matchCommitter = commit.match(
-	/^committer (.*?)( [0-9a-f]+)? <.* (\d{10} [+-]\d{4})$/m
+	/^committer (.*?)( [0-9a-f]+)? <.* (\d{10} [+-]\d{4})$/m,
 );
 
 if (!matchCommitter || matchCommitter.length !== 4) {
@@ -88,15 +88,15 @@ console.info(`Committer name:   ${committerName}`);
 console.info(
 	`Committer hex:    ${
 		committerHex ? `${committerHex} (to be replaced)` : "[None]"
-	}`
+	}`,
 );
 console.info(`Commit date:      ${commitDate}`);
 
 const newCommit = commit.replace(
 	new RegExp(
-		`committer ${committerName}${committerHex ? ` ${committerHex}` : ""}`
+		`committer ${committerName}${committerHex ? ` ${committerHex}` : ""}`,
 	),
-	`committer ${committerName} ${PATTERN_PLACEHOLDER}`
+	`committer ${committerName} ${PATTERN_PLACEHOLDER}`,
 );
 
 const newCommitSize =
@@ -113,7 +113,7 @@ const workers: Worker[] = [];
 console.info(
 	`\nStart searching for a hash starting with '${target}', using ${cpusCount} worker${
 		cpusCount !== 1 ? "s" : ""
-	}:`
+	}:`,
 );
 
 let found = false;
@@ -124,8 +124,8 @@ for (let cpu = 0; cpu < cpusCount; cpu++) {
 
 	console.info(
 		`  Worker ${cpu} computing from ${paddedHex(hexStart)} to ${paddedHex(
-			hexEnd
-		)}`
+			hexEnd,
+		)}`,
 	);
 
 	const worker = new Worker(`${__dirname}/worker.js`, {
@@ -137,7 +137,7 @@ for (let cpu = 0; cpu < cpusCount; cpu++) {
 		if (!found) {
 			found = true;
 
-			workers.forEach(worker => worker.terminate());
+			workers.forEach((workerToTerminate) => workerToTerminate.terminate());
 
 			console.info(`\nFound in ${(Date.now() - startDate) / 1000}s!\n`);
 			console.info(`Hex number: ${paddedHex(hex)}`);
@@ -147,7 +147,7 @@ for (let cpu = 0; cpu < cpusCount; cpu++) {
 			console.info(`${genCommit(newCommit, hex)}${"–".repeat(50)}`);
 
 			const gitCommand = `GIT_COMMITTER_NAME="${committerName} ${paddedHex(
-				hex
+				hex,
 			)}" GIT_COMMITTER_DATE="${commitDate}" git commit --amend --no-edit --no-gpg-sign -c HEAD`;
 
 			console.info("Git command:");
@@ -164,7 +164,7 @@ for (let cpu = 0; cpu < cpusCount; cpu++) {
 					output: process.stdout,
 				});
 
-				readlineInterface.question("Amend commit? [y/N] ", answer => {
+				readlineInterface.question("Amend commit? [y/N] ", (answer) => {
 					readlineInterface.close();
 
 					if (answer.toLowerCase() === "y" || answer.toLowerCase() === "yes") {
