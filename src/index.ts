@@ -49,6 +49,13 @@ if (stagedFiles) {
 
 const commitObject = execSync("git cat-file commit HEAD", { encoding: "utf8" });
 
+if (!commitObject.endsWith("\n")) {
+	console.error(
+		"The commit message doesn't end with a new line. Edit it first, then restart this tool.",
+	);
+	exit(1);
+}
+
 const matchSignature = commitObject.match(
 	/gpgsig.*-----END PGP SIGNATURE-----/s,
 );
