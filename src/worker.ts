@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import { parentPort, workerData } from "worker_threads";
-import { genCommit } from "./Common";
+import { genCommit } from "./common";
 
 const { workingCommit, target, hexStart, hexEnd } = workerData;
 
