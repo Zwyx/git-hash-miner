@@ -72,7 +72,7 @@ if (autoAmend) {
 }
 
 const matchCommitter = commit.match(
-	/^committer (\w*)( [0-9a-f]+)? <.* (\d{10} [+-]\d{4})$/m
+	/^committer (.*?)( [0-9a-f]+)? <.* (\d{10} [+-]\d{4})$/m
 );
 
 if (!matchCommitter || matchCommitter.length !== 4) {
