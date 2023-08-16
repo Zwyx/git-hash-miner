@@ -1,7 +1,4 @@
-# NPM login token
-.npmrc
-
 node_modules
-
 dist
+.npmrc
 git-hash-miner-*.tgz

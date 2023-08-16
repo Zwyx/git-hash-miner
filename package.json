@@ -13,7 +13,7 @@
 	"scripts": {
 		"build": "npm run lint && tsc && sed -i '1s|#!/usr/bin/env ts-node|#!/usr/bin/env node|' dist/index.js",
 		"prepack": "npm run build",
-		"lint": "eslint src --report-unused-disable-directives --max-warnings 0",
+		"lint": "eslint --max-warnings=0 src",
 		"release": "git push && git push --tags && npm ci && npm publish",
 		"release-major": "npm version major && npm run release",
 		"release-minor": "npm version minor && npm run release",

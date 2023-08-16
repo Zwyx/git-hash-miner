@@ -12,7 +12,7 @@ import {
 	PATTERN_PLACEHOLDER,
 	genCommit,
 	paddedHex,
-} from "./Common";
+} from "./common";
 
 const startDate = Date.now();
 
